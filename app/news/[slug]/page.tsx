@@ -1,15 +1,14 @@
-import { notFound } from 'next/navigation';
+/* eslint-disable @next/next/no-img-element */
+'use client';
 
-import { DUMMY_NEWS } from '@/dummy-news';
+import { notFound, useParams } from 'next/navigation';
 import Link from 'next/link';
 
-export default function NewsDetailPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const newsSlug = params.slug;
-  const newsItem = DUMMY_NEWS.find((item) => item.slug === newsSlug);
+import { DUMMY_NEWS } from '@/dummy-news';
+
+export default function NewsDetailPage() {
+  const { slug } = useParams();
+  const newsItem = DUMMY_NEWS.find((item) => item.slug === slug);
 
   if (!newsItem) {
     notFound();

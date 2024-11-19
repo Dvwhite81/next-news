@@ -1,5 +1,7 @@
-import { DUMMY_NEWS } from '@/dummy-news';
+/* eslint-disable @next/next/no-img-element */
 import { notFound } from 'next/navigation';
+
+import { DUMMY_NEWS } from '@/dummy-news';
 
 export default function ImagePage({ params }: { params: { slug: string } }) {
   const newsSlug = params.slug;
