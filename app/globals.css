@@ -164,6 +164,10 @@ ul {
   margin: 0;
 }
 
+.modal img {
+  max-width: 100%;
+}
+
 #archive-header ul {
   display: flex;
   gap: 1rem;
