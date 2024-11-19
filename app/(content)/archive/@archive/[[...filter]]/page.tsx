@@ -5,7 +5,7 @@ import {
   getNewsForYearAndMonth,
 } from '@/lib/news';
 import Link from 'next/link';
-import { getAvailableNewsMonths } from '../../../../lib/news';
+import { getAvailableNewsMonths } from '../../../../../lib/news';
 
 export default function FilteredNewsPage({
   params,
