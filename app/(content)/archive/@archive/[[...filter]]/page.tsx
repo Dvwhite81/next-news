@@ -1,23 +1,21 @@
+'use client';
+
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+
 import NewsList from '@/components/news-list';
 import {
+  getAvailableNewsMonths,
   getAvailableNewsYears,
   getNewsForYear,
   getNewsForYearAndMonth,
 } from '@/lib/news';
-import Link from 'next/link';
-import { getAvailableNewsMonths } from '../../../../../lib/news';
 
-export default function FilteredNewsPage({
-  params,
-}: {
-  params: { filter: string[] | undefined };
-}) {
-  const { filter } = params;
+export default function FilteredNewsPage() {
+  const { filter } = useParams();
 
   const selectedYear = filter?.[0];
   const selectedMonth = filter?.[1];
-  console.log('YEAR:', selectedYear);
-  console.log('MONTH:', selectedMonth);
 
   let news;
   let links = getAvailableNewsYears();
