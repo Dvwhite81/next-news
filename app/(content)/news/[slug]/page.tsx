@@ -1,14 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
-
-import { notFound, useParams } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { getNewsItem } from '@/lib/news';
+import { NewsItemType } from '@/lib/types';
 
-import { DUMMY_NEWS } from '@/dummy-news';
-
-export default function NewsDetailPage() {
-  const { slug } = useParams();
-  const newsItem = DUMMY_NEWS.find((item) => item.slug === slug);
+export default async function NewsDetailPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const newsItem = (await getNewsItem(slug)) as NewsItemType;
 
   if (!newsItem) {
     notFound();
@@ -18,12 +20,12 @@ export default function NewsDetailPage() {
     <article className="news-article">
       <header>
         <Link href={`/news/${newsItem.slug}/image`}>
-          <img src={`/images/news/${newsItem?.image}`} alt={newsItem?.title} />
+          <img src={`/images/news/${newsItem.image}`} alt={newsItem.title} />
         </Link>
-        <h1>{newsItem?.title}</h1>
-        <time dateTime={newsItem?.date}>{newsItem?.date}</time>
+        <h1>{newsItem.title}</h1>
+        <time dateTime={newsItem.date}>{newsItem.date}</time>
       </header>
-      <p>{newsItem?.content}</p>
+      <p>{newsItem.content}</p>
     </article>
   );
 }

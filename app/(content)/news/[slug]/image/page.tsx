@@ -1,13 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
+import { getNewsItem } from '@/lib/news';
+import { NewsItemType } from '@/lib/types';
+import { notFound } from 'next/navigation';
 
-import { notFound, useParams } from 'next/navigation';
-
-import { DUMMY_NEWS } from '@/dummy-news';
-
-export default function ImagePage() {
-  const { slug } = useParams();
-  const newsItem = DUMMY_NEWS.find((item) => item.slug === slug);
+export default async function ImagePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const newsItem = (await getNewsItem(slug)) as NewsItemType;
 
   if (!newsItem) {
     notFound();

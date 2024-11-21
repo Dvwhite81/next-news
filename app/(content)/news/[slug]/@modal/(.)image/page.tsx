@@ -1,16 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
+import { notFound } from 'next/navigation';
 
-import { notFound, useParams, useRouter } from 'next/navigation';
+import ModalBackdrop from '@/components/modal-backdrop';
+import { getNewsItem } from '@/lib/news';
+import { NewsItemType } from '@/lib/types';
 
-import { DUMMY_NEWS } from '@/dummy-news';
-
-export default function InterceptedImagePage() {
-  console.log('INTERCEPTED');
-  const router = useRouter();
-
-  const { slug } = useParams();
-  const newsItem = DUMMY_NEWS.find((item) => item.slug === slug);
+export default async function InterceptedImagePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  const newsItem = (await getNewsItem(slug)) as NewsItemType;
 
   if (!newsItem) {
     notFound();
@@ -18,7 +19,7 @@ export default function InterceptedImagePage() {
 
   return (
     <>
-      <div className="modal-backdrop" onClick={router.back} />
+      <ModalBackdrop />
       <dialog className="modal" open>
         <div className="fullscreen-image">
           <img src={`/images/news/${newsItem.image}`} alt={newsItem.title} />
